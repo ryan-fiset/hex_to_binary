@@ -51,10 +51,8 @@ fn will_parse(parse_data: Result<u8, ParseIntError>) -> bool {
             if num == 1 || num == 2 {
                 return true;
             }
-            return false;
+            false
         }
-        Err(_) => {
-            return false;
-        }
+        Err(_) => false,
     }
 }
