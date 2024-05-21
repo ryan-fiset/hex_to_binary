@@ -102,7 +102,5 @@ pub fn binary_to_hex_conversion(bits: Vec<char>) -> String {
         bit_place /= 2;
     }
 
-    println!("Bits: {:?}", bits);
-
     hex
 }
