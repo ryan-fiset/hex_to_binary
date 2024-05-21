@@ -78,7 +78,7 @@ pub fn binary_to_hex_conversion(bits: Vec<char>) -> String {
     let mut current_byte: u8 = 0;
     let mut bit_place = 8;
 
-    for bit_char in &bits {
+    for bit_char in bits {
         let bit = bit_char.to_string().parse::<u8>().unwrap();
 
         if bit == 1 {
