@@ -4,6 +4,7 @@ pub mod conversion;
 pub mod ui;
 
 pub static HEX_AS_DECIMAL: phf::Map<char, &'static str> = phf_map! {
+    '0' => "0",
     '1' => "1",
     '2' => "2",
     '3' => "3",
