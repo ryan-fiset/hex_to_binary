@@ -48,3 +48,61 @@ pub fn decimal_to_bin(decimal_values: Vec<&'static str>) -> String {
 
     binary
 }
+
+pub fn parse_binary(binary_input: String) -> Result<Vec<char>, Error> {
+    let mut characters: Vec<char> = binary_input
+        .strip_suffix("\n")
+        .expect("No \n")
+        .chars()
+        .rev()
+        .peekable()
+        .collect();
+
+    for character in &characters {
+        if *character != '0' && *character != '1' {
+            return Err(Error);
+        }
+    }
+
+    while characters.len() % 4 != 0 {
+        characters.push('0');
+    }
+
+    characters.reverse();
+
+    Ok(characters)
+}
+
+pub fn binary_to_hex_conversion(bits: Vec<char>) -> String {
+    let mut hex = String::new();
+    let mut current_byte: u8 = 0;
+    let mut bit_place = 8;
+
+    for bit_char in &bits {
+        let bit = bit_char.to_string().parse::<u8>().unwrap();
+
+        if bit == 1 {
+            current_byte += bit_place;
+        }
+
+        if bit_place == 1 {
+            HEX_AS_DECIMAL.into_iter().find_map(|(key, &val)| {
+                if val.parse::<u8>().unwrap() == current_byte {
+                    hex.push_str(&key.to_string());
+                    Some(())
+                } else {
+                    None
+                }
+            });
+            bit_place = 8;
+            current_byte = 0;
+            continue;
+        }
+
+        bit_place /= 2;
+    }
+
+    println!("Bits: {:?}", bits);
+
+    hex
+}

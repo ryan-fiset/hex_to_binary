@@ -1,9 +1,9 @@
 use std::{
-    io::{stdin, stdout, Write},
+    io::{stdin, stdout, Read, Write},
     num::ParseIntError,
 };
 
-use crate::conversion::{decimal_to_bin, parse_hex};
+use crate::conversion::{binary_to_hex_conversion, decimal_to_bin, parse_binary, parse_hex};
 
 pub fn choose_conversion() -> u8 {
     let mut input_str = String::new();
@@ -80,4 +80,35 @@ pub fn hex_to_bin() {
     }
 
     println!("{}", binary);
+}
+
+#[allow(unused_assignments)]
+pub fn binary_to_hex() {
+    let mut binary_input = String::new();
+    let mut hex = String::new();
+
+    loop {
+        print!("Binary number: ");
+
+        stdout().flush().expect("Error flushing output");
+        match stdin().read_line(&mut binary_input) {
+            Ok(_) => match parse_binary(binary_input.clone()) {
+                Ok(bits) => {
+                    hex = binary_to_hex_conversion(bits);
+                    break;
+                }
+                Err(_) => {
+                    println!("Invalid input, try again");
+                    binary_input = String::from(""); // Reset input
+                    continue;
+                }
+            },
+            Err(error) => {
+                println!("Error given: {error}, try again.\n");
+                continue;
+            }
+        }
+    }
+
+    println!("{}", hex);
 }
