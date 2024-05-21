@@ -26,14 +26,14 @@ static HEX_AS_DECIMAL: phf::Map<char, &'static str> = phf_map! {
 
 fn main() {
     match choose_conversion() {
-        1 => println!("{}", hex_to_bin()),
+        1 => hex_to_bin(),
         2 => println!("Hexadecimal"),
         _ => (),
     };
 }
 
 #[allow(unused_assignments)]
-fn hex_to_bin() -> String {
+fn hex_to_bin() {
     let mut hex_input = String::new();
     let mut binary = String::new();
 
@@ -61,7 +61,7 @@ fn hex_to_bin() -> String {
         }
     }
 
-    binary
+    println!("{}", binary);
 }
 
 fn decimal_to_bin(decimal_values: Vec<&'static str>) -> String {
